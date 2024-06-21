@@ -13,7 +13,6 @@ const server = http.createServer((req, res) => {
     })
   }
 
-
   if (req.url === '/') {
     handlefile('home.html', 200)
   } else if (req.url === '/about') {
