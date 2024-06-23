@@ -2,10 +2,13 @@ const express = require("express");
 const app = express();
 const useRouter = require('./routes/users.routes');
 
-app.use('/api/user', useRouter)
+// app.use('/api/user', useRouter)
 
-app.get("/", (req, res) => {
-  res.send("<h1> I'm get Home at App</h1>")
+app.use(express.json())
+
+app.post("/", (req, res) => {
+  console.log(req.body.name);
+  res.send('Im home post request')
 })
 
 app.use((req, res) => {
