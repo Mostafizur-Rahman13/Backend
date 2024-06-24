@@ -1,5 +1,5 @@
 {
-  "name": "express-parameter",
+  "name": "express-json",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,9 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
     "express": "^4.19.2",
     "nodemon": "^3.1.4"
-  },
-  "description": ""
+  }
 }
