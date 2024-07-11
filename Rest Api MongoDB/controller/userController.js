@@ -4,10 +4,8 @@ const { v4: uuidv4 } = require('uuid');
 const getAllUsers = async (req, res) => {
 
   try {
-
     const users = await User.find();
     res.status(201).json(users);
-
   } catch (error) {
     res.status(500).send(error.message)
   }
@@ -16,10 +14,8 @@ const getAllUsers = async (req, res) => {
 const getOneUser = async (req, res) => {
 
   try {
-
     const user = await User.findOne({ id: req.params.id });
     res.status(201).json(user);
-
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -28,7 +24,6 @@ const getOneUser = async (req, res) => {
 const createUser = async (req, res) => {
 
   try {
-
     const newUser = new User({
       id: uuidv4(),
       name: req.body.name,
@@ -37,7 +32,6 @@ const createUser = async (req, res) => {
 
     await newUser.save();
     res.status(201).json(newUser);
-
   } catch (error) {
     res.status(500).send(error.message);
   }
