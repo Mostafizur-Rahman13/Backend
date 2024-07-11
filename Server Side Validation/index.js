@@ -1,10 +1,11 @@
 const express = require('express');
-const useRoute = require('./Routes/userRoute');
 const app = express();
 const PORT = 3001;
+const useRoute = require('./Routes/userRoute');
+
 
 app.get("/test", (req, res) => {
-  res.send(`Server is Running..`)
+  res.send(`Server is Running....`)
 })
 
 app.use(express.urlencoded({ extended: true }));

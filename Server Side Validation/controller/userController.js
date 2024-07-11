@@ -1,4 +1,4 @@
-const registerUser = (req, res) => {
+const userRegister = (req, res) => {
 
   try {
 
@@ -21,10 +21,9 @@ const registerUser = (req, res) => {
       message: error.message
     });
   }
-
 }
 
-const loginUser = (req, res) => {
+const userLogin = (req, res) => {
 
   try {
 
@@ -48,4 +47,4 @@ const loginUser = (req, res) => {
 
 }
 
-module.exports = { registerUser, loginUser };
+module.exports = { userRegister, userLogin };
