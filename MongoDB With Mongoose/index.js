@@ -1,11 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const PORT = 3000;
+const PORT = 3003;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 const productSchema = new mongoose.Schema({
   title: {
@@ -23,11 +22,9 @@ const productSchema = new mongoose.Schema({
   }
 });
 
-
 const Product = mongoose.model("Product", productSchema);
 
 const dbConnection = async () => {
-
   try {
     await mongoose.connect(`mongodb://127.0.0.1:27017/ProductDB`)
     console.log(`Database is connected`);
@@ -40,7 +37,21 @@ const dbConnection = async () => {
 
 app.get("/", (req, res) => {
   res.send(`Welcome to Server is Listening...`);
-})
+});
+
+app.get("/product", async (req, res) => {
+
+  try {
+    const product = await Product.find().limit(2);
+    if (product) {
+      res.status(201).send(product);
+    } else {
+      res.status(404).send({ message: "Product is not found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
 
 app.get("/products", async (req, res) => {
 
@@ -69,10 +80,25 @@ app.post("/products", async (req, res) => {
   }
 });
 
+
+
 app.get("/products/:id", async (req, res) => {
+
+  const product = await Product.findOne({ _id: req.params.id }, { title: 1, _id: 0 });
+
   try {
-    const product = await Product.findOne({ id: req.params.id });
-    res.status(201).json(product)
+    if (product) {
+      res.status(201).send({
+        succefull: true,
+        message: `Return Single Product`,
+        data: product
+      })
+    } else {
+      res.status(500).send({
+        succefull: false,
+        message: "Product not found"
+      })
+    }
   } catch (error) {
     res.status(500).send({ message: error.message })
   }
