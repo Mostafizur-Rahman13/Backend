@@ -55,16 +55,33 @@ app.get("/product", async (req, res) => {
 
 app.get("/products", async (req, res) => {
 
+  let Products
+
   try {
-    const Products = await Product.find();
-    res.status(201).json(Products);
+    const price = req.query.price
+    if (price) {
+      Products = await Product.find({ price: { $gt: price } });
+    } else {
+      Products = await Product.find();
+    }
+
+    if (Products) {
+      succefull: true,
+        res.status(201).send(Products);
+    } else {
+      res.status(500).send({
+        succefull: false,
+        message: "Product not found",
+      })
+    }
   } catch (error) {
     res.status(500).send({ message: error.message })
   }
 })
 
-app.post("/products", async (req, res) => {
 
+
+app.post("/products", async (req, res) => {
   try {
     const { title, price, description } = req.body
     const newProduct = new Product({
